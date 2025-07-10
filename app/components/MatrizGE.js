@@ -69,11 +69,11 @@ const KEY_HORA_ALUNO = 'HORA ALUNO';
 const CRITERIOS_CONFIG = {
   'Faturamento': {
     notas: [
-      { valor: 1, descricao: 'até R$ 100.000,00 (Habilitação Técnica) | R$ 75.000,00 (Qualificação)' },
-      { valor: 2, descricao: 'até R$ 250.000,00 (Habilitação Técnica) | R$ 200.000,00 (Qualificação)' },
-      { valor: 3, descricao: 'até R$ 300.000,00 (Habilitação Técnica) | R$ 400.000,00 (Qualificação)' },
-      { valor: 4, descricao: 'até R$ 600.000,00 (Habilitação Técnica) | R$ 800.000,00 (Qualificação)' },
-      { valor: 5, descricao: 'acima de R$ 600.000,00 (Habilitação Técnica) | R$ 800.000,00 (Qualificação)' }
+      { valor: 1, descricao: 'valor igual ou inferior a R$ 100.000,00 (Habilitação Técnica) | igual ou inferior a R$ 75.000,00 (Qualificação Profissional)' },
+      { valor: 2, descricao: 'valor entre R$ 100.000,01 e R$ 250.000,00 (Habilitação Técnica) | entre R$ 75.000,01 e R$ 200.000,00 (Qualificação Profissional)' },
+      { valor: 3, descricao: 'valor entre R$ 250.000,01 e R$ 300.000,00 (Habilitação Técnica) | entre R$ 200.000,01 e R$ 400.000,00 (Qualificação Profissional)' },
+      { valor: 4, descricao: 'valor entre R$ 300.000,01 e R$ 600.000,00 (Habilitação Técnica) | entre R$ 400.000,01 e R$ 800.000,00 (Qualificação Profissional)' },
+      { valor: 5, descricao: 'valor acima de R$ 600.000,00 (Habilitação Técnica) | acima de R$ 800.000,00 (Qualificação Profissional)' }
     ]
   },
   'Satisfação': {
@@ -105,20 +105,20 @@ const CRITERIOS_CONFIG = {
   },
   'Tamanho de Mercado': {
     notas: [
-      { valor: 1, descricao: 'saldo menor ou igual a 500' },
-      { valor: 2, descricao: 'saldo maior que 500 e menor ou igual a 1000' },
-      { valor: 3, descricao: 'saldo maior que 1000 e menor ou igual a 2000' },
-      { valor: 4, descricao: 'saldo maior que 2000 e menor ou igual a 3000' },
-      { valor: 5, descricao: 'saldo maior que 3000' }
+      { valor: 1, descricao: 'saldo menor ou igual a 500 horas (Habilitação Técnica) | menor ou igual a 100 horas (Qualificação)' },
+      { valor: 2, descricao: 'saldo entre 501 e 1000 horas (Habilitação Técnica) | entre 101 e 500 horas (Qualificação)' },
+      { valor: 3, descricao: 'saldo entre 1001 e 2000 horas (Habilitação Técnica) | entre 501 e 1200 horas (Qualificação)' },
+      { valor: 4, descricao: 'saldo entre 2001 e 3000 horas (Habilitação Técnica) | entre 1201 e 2500 horas (Qualificação)' },
+      { valor: 5, descricao: 'saldo acima de 3000 horas (Habilitação Técnica) | acima de 2500 horas (Qualificação)' }
     ]
   },
   'Crescimento de Mercado': {
     notas: [
-      { valor: 1, descricao: 'resultado menor ou igual a 20000' },
-      { valor: 2, descricao: 'resultado maior que 20000 e menor ou igual a 40000' },
-      { valor: 3, descricao: 'resultado maior que 40000 e menor ou igual a 60000' },
-      { valor: 4, descricao: 'resultado maior que 60000 e menor ou igual a 80000' },
-      { valor: 5, descricao: 'saldo maior que 80000' }
+      { valor: 1, descricao: 'resultado igual ou inferior a 20.000 (Habilitação Técnica) | igual ou inferior a 0 (Qualificação)' },
+      { valor: 2, descricao: 'resultado entre 20.001 e 40.000 (Habilitação Técnica) | entre 1 e 1.000 (Qualificação)' },
+      { valor: 3, descricao: 'resultado entre 40.001 e 60.000 (Habilitação Técnica) | entre 1.001 e 2.500 (Qualificação)' },
+      { valor: 4, descricao: 'resultado entre 60.001 e 80.000 (Habilitação Técnica) | entre 2.501 e 4.500 (Qualificação Profissional)' },
+      { valor: 5, descricao: 'resultado acima de 80.000 (Habilitação Técnica) | acima de 4.500 (Qualificação)' }
     ]
   },
   'Vulnerabilidade': {
@@ -139,6 +139,18 @@ const CRITERIOS_CONFIG = {
       { valor: 5, descricao: 'nenhum concorrente relevante' }
     ]
   }
+};
+
+// --- Mapeamento de critérios para colunas reais da planilha ---
+const CRITERIOS_TO_COLUNAS = {
+  'Faturamento': 'Faturamento',
+  'Satisfação': 'satisfação dos clientes',
+  'Capacidade de Oferta': 'Capacidade de Oferta',
+  'Facilidade de Adesão': 'Facilidade de Adesão',
+  'Tamanho de Mercado': 'Tamanho de Mercado',
+  'Crescimento de Mercado': 'Crescimento de Mercado',
+  'Vulnerabilidade': 'Vulnerabilidade',
+  'Volume de Concorrentes': 'Volume de Concorrentes',
 };
 
 // --- Updated Technical Note Content ---
@@ -170,11 +182,11 @@ Esses dois eixos são divididos em <strong>baixo</strong>, <strong>médio</stron
 Para os itens de análise interna foram considerados os 3 últimos anos. Os intervalos de classificação são:
 
 <strong>Faturamento</strong>
-Nota 1: até R$ 100.000,00 (Habilitação Técnica) | R$ 75.000,00 (Qualificação)
-Nota 2: até R$ 250.000,00 (Habilitação Técnica) | R$ 200.000,00 (Qualificação)
-Nota 3: até R$ 300.000,00 (Habilitação Técnica) | R$ 400.000,00 (Qualificação)
-Nota 4: até R$ 600.000,00 (Habilitação Técnica) | R$ 800.000,00 (Qualificação)
-Nota 5: acima de R$ 600.000,00 (Habilitação Técnica) | R$ 800.000,00 (Qualificação)
+Nota 1: valor igual ou inferior a R$ 100.000,00 (Habilitação Técnica) | igual ou inferior a R$ 75.000,00 (Qualificação Profissional)
+Nota 2: valor entre R$ 100.000,01 e R$ 250.000,00 (Habilitação Técnica) | entre R$ 75.000,01 e R$ 200.000,00 (Qualificação Profissional)
+Nota 3: valor entre R$ 250.000,01 e R$ 300.000,00 (Habilitação Técnica) | entre R$ 200.000,01 e R$ 400.000,00 (Qualificação Profissional)
+Nota 4: valor entre R$ 300.000,01 e R$ 600.000,00 (Habilitação Técnica) | entre R$ 400.000,01 e R$ 800.000,00 (Qualificação Profissional)
+Nota 5: valor acima de R$ 600.000,00 (Habilitação Técnica) | acima de R$ 800.000,00 (Qualificação Profissional)
 
 <strong>Satisfação</strong>
 Nota 1: NPS até 20%
@@ -198,18 +210,18 @@ Nota 4: maior que 60 dias e menor ou igual que 80 dias
 Nota 5: menor ou igual que 60 dias
 
 <strong>Tamanho de Mercado (estoque de empregos)</strong>
-Nota 1: saldo menor ou igual a 500
-Nota 2: saldo maior que 500 e menor ou igual a 1000
-Nota 3: saldo maior que 1000 e menor ou igual a 2000
-Nota 4: saldo maior que 2000 e menor ou igual a 3000
-Nota 5: saldo maior que 3000
+Nota 1: saldo menor ou igual a 500 horas (Habilitação Técnica) | menor ou igual a 100 horas (Qualificação)
+Nota 2: saldo entre 501 e 1000 horas (Habilitação Técnica) | entre 101 e 500 horas (Qualificação)
+Nota 3: saldo entre 1001 e 2000 horas (Habilitação Técnica) | entre 501 e 1200 horas (Qualificação)
+Nota 4: saldo entre 2001 e 3000 horas (Habilitação Técnica) | entre 1201 e 2500 horas (Qualificação)
+Nota 5: saldo acima de 3000 horas (Habilitação Técnica) | acima de 2500 horas (Qualificação)
 
-<strong>Crescimento de Mercado (produto entre o estoque de empregos e o mapa do trabalho)</strong>
-Nota 1: resultado menor ou igual a 20000
-Nota 2: resultado maior que 20000 e menor ou igual a 40000
-Nota 3: resultado maior que 40000 e menor ou igual a 60000
-Nota 4: resultado maior que 60000 e menor ou igual a 80000
-Nota 5: saldo maior que 80000
+<strong>Crescimento de Mercado (produto entre o estoque de empregos e o Mapa do Trabalho)</strong>
+Nota 1: resultado igual ou inferior a 20.000 (Habilitação Técnica) | igual ou inferior a 0 (Qualificação)
+Nota 2: resultado entre 20.001 e 40.000 (Habilitação Técnica) | entre 1 e 1.000 (Qualificação)
+Nota 3: resultado entre 40.001 e 60.000 (Habilitação Técnica) | entre 1.001 e 2.500 (Qualificação)
+Nota 4: resultado entre 60.001 e 80.000 (Habilitação Técnica) | entre 2.501 e 4.500 (Qualificação Profissional)
+Nota 5: resultado acima de 80.000 (Habilitação Técnica) | acima de 4.500 (Qualificação)
 
 <strong>Vulnerabilidade (sensibilidade aos fatores externos – análise PESTEL)</strong>
 Nota 5: cenário muito favorável
@@ -256,7 +268,7 @@ const PlotlyLoadingFallback = () => {
 const Plot = lazy(() => import('react-plotly.js'));
 
 // --- FilterPopover Component ---
-function FilterPopover({ labelText, options, selectedValues, onChange, buttonId, opened, onOpenChange, colorScheme = 'light' }) {
+function FilterPopover({ labelText, options, selectedValues, onChange, buttonId, opened, onOpenChange, colorScheme = 'light', enableSearch = false }) {
   const fixed_button_width = '120px';
   // Agora o tema usa o colorScheme recebido por prop
   const theme = {
@@ -300,6 +312,14 @@ function FilterPopover({ labelText, options, selectedValues, onChange, buttonId,
     }
     return `${selectedValues.length} ${plural}`;
   }, [selectedValues, labelText, fixed_button_width, options]);
+
+  // --- NOVO: Estado para busca textual ---
+  const [searchText, setSearchText] = useState('');
+  const filteredOptions = useMemo(() => {
+    if (!enableSearch || !searchText.trim()) return options;
+    const lower = searchText.trim().toLowerCase();
+    return options.filter(opt => String(opt.label).toLowerCase().includes(lower));
+  }, [options, searchText, enableSearch]);
 
   // --- NOVO: Controle de hover para evitar fechamento prematuro ---
   const [isButtonHovered, setIsButtonHovered] = useState(false);
@@ -497,9 +517,32 @@ function FilterPopover({ labelText, options, selectedValues, onChange, buttonId,
             tryClosePopover('popover');
           }}
         >
+          {/* Campo de busca textual, se habilitado */}
+          {enableSearch && (
+            <div style={{ marginBottom: 8 }}>
+              <input
+                type="text"
+                value={searchText}
+                onChange={e => setSearchText(e.target.value)}
+                placeholder="Buscar..."
+                style={{
+                  width: '100%',
+                  padding: '6px 10px',
+                  borderRadius: 4,
+                  border: '1px solid ' + (theme.colorScheme === 'dark' ? '#888' : '#ccc'),
+                  fontSize: '0.85rem',
+                  fontFamily: 'Roboto Flex, Arial, sans-serif',
+                  background: theme.colorScheme === 'dark' ? '#232323' : '#f8f9fa',
+                  color: theme.colorScheme === 'dark' ? '#fff' : theme.black,
+                  marginBottom: 2,
+                }}
+                autoFocus
+              />
+            </div>
+          )}
           {options.length > 0 ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              {options.map((opt) => (
+              {filteredOptions.map((opt) => (
                 <label key={String(opt.value)} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', fontSize: '0.8rem', color: theme.colorScheme === 'dark' ? DARK_MODE_FONT_COLOR : theme.black, fontFamily: 'Roboto Flex, Arial, sans-serif' }}>
                   <input
                     type="checkbox"
@@ -633,6 +676,20 @@ function FilterPopoverHierarchical({ labelText, criteriosConfig, selectedCriteri
   const isNotaSelected = (criterioName, nota) => {
     return selectedCriterios.includes(`${criterioName}:${nota}`);
   };
+
+  // --- NOVO: Definir grupos de critérios ---
+  const POSICAO_COMPETITIVA = [
+    'Faturamento',
+    'Satisfação',
+    'Capacidade de Oferta',
+    'Facilidade de Adesão',
+  ];
+  const ATRATIVIDADE_MERCADO = [
+    'Tamanho de Mercado',
+    'Crescimento de Mercado',
+    'Vulnerabilidade',
+    'Volume de Concorrentes',
+  ];
 
   return (
     <div style={{ position: 'relative' }}>
@@ -776,188 +833,527 @@ function FilterPopoverHierarchical({ labelText, criteriosConfig, selectedCriteri
         >
           {/* Conteúdo da lista com rolagem e fundo */}
           <div style={{ maxHeight: '300px', overflowY: 'auto', backgroundColor: theme.colorScheme === 'dark' ? '#444' : 'white' }}>
+            {/* Cabeçalho: Posição Competitiva */}
+            <div
+              style={{
+                fontWeight: 'bold',
+                fontSize: '0.85rem',
+                color: theme.colorScheme === 'dark' ? DARK_MODE_FONT_COLOR : theme.black,
+                margin: '8px 0 4px 0',
+                background: theme.colorScheme === 'dark' ? '#554c1a' : '#fff9db',
+                padding: '6px 12px',
+                borderBottom: '1px solid ' + (theme.colorScheme === 'dark' ? '#a08c3a' : '#ffe066'),
+                letterSpacing: '0.01em',
+                boxShadow: theme.colorScheme === 'dark' ? '0 1px 2px rgba(0,0,0,0.08)' : '0 1px 2px rgba(0,0,0,0.04)',
+              }}
+            >
+              Posição Competitiva
+            </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              {Object.entries(criteriosConfig).map(([criterioName, criterioData]) => (
-                <div key={criterioName} style={{ borderBottom: '1px solid ' + (theme.colorScheme === 'dark' ? '#555' : '#eee'), paddingBottom: '4px' }}>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      cursor: 'pointer',
-                      fontSize: '0.8rem',
-                      fontWeight: 'bold',
-                      color: theme.colorScheme === 'dark' ? DARK_MODE_FONT_COLOR : theme.black,
-                      fontFamily: 'Roboto Flex, Arial, sans-serif',
-                      padding: '4px 0',
-                    }}
-                    onClick={() => toggleCriterio(criterioName)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke={theme.colorScheme === 'dark' ? DARK_MODE_FONT_COLOR : theme.black}
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+              {POSICAO_COMPETITIVA.map((criterioName) => {
+                const criterioData = criteriosConfig[criterioName];
+                if (!criterioData) return null;
+                return (
+                  <div key={criterioName} style={{ borderBottom: '1px solid ' + (theme.colorScheme === 'dark' ? '#555' : '#eee'), paddingBottom: '4px' }}>
+                    {/* ...código do critério (copiado do map anterior)... */}
+                    <div
                       style={{
-                        marginRight: '8px',
-                        transform: expandedCriterios.has(criterioName) ? 'rotate(90deg)' : 'rotate(0deg)',
-                        transition: 'transform 0.2s ease',
+                        display: 'flex',
+                        alignItems: 'center',
+                        cursor: 'pointer',
+                        fontSize: '0.8rem',
+                        fontWeight: 'bold',
+                        color: theme.colorScheme === 'dark' ? DARK_MODE_FONT_COLOR : theme.black,
+                        fontFamily: 'Roboto Flex, Arial, sans-serif',
+                        padding: '4px 0',
                       }}
+                      onClick={() => toggleCriterio(criterioName)}
                     >
-                      <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                    {criterioName}
-                    {criterioName === 'Faturamento' && (
-                      <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
-                        <span
-                          className="material-icons-outlined"
-                          style={{
-                            fontSize: '16px',
-                            color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
-                            cursor: 'pointer',
-                            verticalAlign: 'middle',
-                            display: 'flex',
-                            alignItems: 'center',
-                            lineHeight: 1,
-                          }}
-                          onMouseEnter={e => {
-                            e.stopPropagation();
-                            const rect = e.currentTarget.getBoundingClientRect();
-                            showTooltip('Para análise, foram consideradas as receitas de balcão e proposta dos últimos 3 anos.\n\nQuanto maior, melhor.', rect);
-                          }}
-                          onMouseLeave={e => {
-                            e.stopPropagation();
-                            hideTooltip();
-                          }}
-                          tabIndex={0}
-                          aria-label="Explicação sobre faturamento"
-                        >
-                          help_outline
-                        </span>
-                      </div>
-                    )}
-                    {criterioName === 'Satisfação' && (
-                      <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
-                        <span
-                          className="material-icons-outlined"
-                          style={{
-                            fontSize: '16px',
-                            color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
-                            cursor: 'pointer',
-                            verticalAlign: 'middle',
-                            display: 'flex',
-                            alignItems: 'center',
-                            lineHeight: 1,
-                          }}
-                          onMouseEnter={e => {
-                            e.stopPropagation();
-                            const rect = e.currentTarget.getBoundingClientRect();
-                            showTooltip('Qualidade da prestação do serviço e entrega de valor aos consumidores.\n\nQuanto maior, melhor.', rect);
-                          }}
-                          onMouseLeave={e => {
-                            e.stopPropagation();
-                            hideTooltip();
-                          }}
-                          tabIndex={0}
-                          aria-label="Explicação sobre satisfação"
-                        >
-                          help_outline
-                        </span>
-                      </div>
-                    )}
-                    {criterioName === 'Capacidade de Oferta' && (
-                      <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
-                        <span
-                          className="material-icons-outlined"
-                          style={{
-                            fontSize: '16px',
-                            color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
-                            cursor: 'pointer',
-                            verticalAlign: 'middle',
-                            display: 'flex',
-                            alignItems: 'center',
-                            lineHeight: 1,
-                          }}
-                          onMouseEnter={e => {
-                            e.stopPropagation();
-                            const rect = e.currentTarget.getBoundingClientRect();
-                            showTooltip('É a nossa capacidade de ofertar um produto com agilidade e frequência.\n\nQuanto maior, melhor.', rect);
-                          }}
-                          onMouseLeave={e => {
-                            e.stopPropagation();
-                            hideTooltip();
-                          }}
-                          tabIndex={0}
-                          aria-label="Explicação sobre capacidade de oferta"
-                        >
-                          help_outline
-                        </span>
-                      </div>
-                    )}
-                    {criterioName === 'Facilidade de Adesão' && (
-                      <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
-                        <span
-                          className="material-icons-outlined"
-                          style={{
-                            fontSize: '16px',
-                            color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
-                            cursor: 'pointer',
-                            verticalAlign: 'middle',
-                            display: 'flex',
-                            alignItems: 'center',
-                            lineHeight: 1,
-                          }}
-                          onMouseEnter={e => {
-                            e.stopPropagation();
-                            const rect = e.currentTarget.getBoundingClientRect();
-                            showTooltip('Facilidade para fechar a quantidade mínima de alunos para rodar uma turma (com base no histórico dos últimos 3 anos).\n\nQuanto maior, melhor.', rect);
-                          }}
-                          onMouseLeave={e => {
-                            e.stopPropagation();
-                            hideTooltip();
-                          }}
-                          tabIndex={0}
-                          aria-label="Explicação sobre facilidade de adesão"
-                        >
-                          help_outline
-                        </span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke={theme.colorScheme === 'dark' ? DARK_MODE_FONT_COLOR : theme.black}
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        style={{
+                          marginRight: '8px',
+                          transform: expandedCriterios.has(criterioName) ? 'rotate(90deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.2s ease',
+                        }}
+                      >
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                      {criterioName}
+                      {/* ...tooltips dos critérios... */}
+                      {criterioName === 'Faturamento' && (
+                        <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
+                          <span
+                            className="material-icons-outlined"
+                            style={{
+                              fontSize: '16px',
+                              color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
+                              cursor: 'pointer',
+                              verticalAlign: 'middle',
+                              display: 'flex',
+                              alignItems: 'center',
+                              lineHeight: 1,
+                            }}
+                            onMouseEnter={e => {
+                              e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              showTooltip('Para análise, foram consideradas as receitas de balcão e proposta dos últimos 3 anos.\n\nQuanto maior, melhor.', rect);
+                            }}
+                            onMouseLeave={e => {
+                              e.stopPropagation();
+                              hideTooltip();
+                            }}
+                            tabIndex={0}
+                            aria-label="Explicação sobre faturamento"
+                          >
+                            help_outline
+                          </span>
+                        </div>
+                      )}
+                      {criterioName === 'Satisfação' && (
+                        <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
+                          <span
+                            className="material-icons-outlined"
+                            style={{
+                              fontSize: '16px',
+                              color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
+                              cursor: 'pointer',
+                              verticalAlign: 'middle',
+                              display: 'flex',
+                              alignItems: 'center',
+                              lineHeight: 1,
+                            }}
+                            onMouseEnter={e => {
+                              e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              showTooltip('Qualidade da prestação do serviço e entrega de valor aos consumidores.\n\nQuanto maior, melhor.', rect);
+                            }}
+                            onMouseLeave={e => {
+                              e.stopPropagation();
+                              hideTooltip();
+                            }}
+                            tabIndex={0}
+                            aria-label="Explicação sobre satisfação"
+                          >
+                            help_outline
+                          </span>
+                        </div>
+                      )}
+                      {criterioName === 'Capacidade de Oferta' && (
+                        <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
+                          <span
+                            className="material-icons-outlined"
+                            style={{
+                              fontSize: '16px',
+                              color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
+                              cursor: 'pointer',
+                              verticalAlign: 'middle',
+                              display: 'flex',
+                              alignItems: 'center',
+                              lineHeight: 1,
+                            }}
+                            onMouseEnter={e => {
+                              e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              showTooltip('É a nossa capacidade de ofertar um produto com agilidade e frequência.\n\nQuanto maior, melhor.', rect);
+                            }}
+                            onMouseLeave={e => {
+                              e.stopPropagation();
+                              hideTooltip();
+                            }}
+                            tabIndex={0}
+                            aria-label="Explicação sobre capacidade de oferta"
+                          >
+                            help_outline
+                          </span>
+                        </div>
+                      )}
+                      {criterioName === 'Facilidade de Adesão' && (
+                        <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
+                          <span
+                            className="material-icons-outlined"
+                            style={{
+                              fontSize: '16px',
+                              color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
+                              cursor: 'pointer',
+                              verticalAlign: 'middle',
+                              display: 'flex',
+                              alignItems: 'center',
+                              lineHeight: 1,
+                            }}
+                            onMouseEnter={e => {
+                              e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              showTooltip('Facilidade para fechar a quantidade mínima de alunos para rodar uma turma (com base no histórico dos últimos 3 anos).\n\nQuanto maior, melhor.', rect);
+                            }}
+                            onMouseLeave={e => {
+                              e.stopPropagation();
+                              hideTooltip();
+                            }}
+                            tabIndex={0}
+                            aria-label="Explicação sobre facilidade de adesão"
+                          >
+                            help_outline
+                          </span>
+                        </div>
+                      )}
+                      {criterioName === 'Tamanho de Mercado' && (
+                        <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
+                          <span
+                            className="material-icons-outlined"
+                            style={{
+                              fontSize: '16px',
+                              color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
+                              cursor: 'pointer',
+                              verticalAlign: 'middle',
+                              display: 'flex',
+                              alignItems: 'center',
+                              lineHeight: 1,
+                            }}
+                            onMouseEnter={e => {
+                              e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              showTooltip('É o estoque atual de colaboradores em empresas do setor (CAGED).\n\nQuanto maior, melhor.', rect);
+                            }}
+                            onMouseLeave={e => {
+                              e.stopPropagation();
+                              hideTooltip();
+                            }}
+                            tabIndex={0}
+                            aria-label="Explicação sobre tamanho de mercado"
+                          >
+                            help_outline
+                          </span>
+                        </div>
+                      )}
+                      {criterioName === 'Crescimento de Mercado' && (
+                        <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
+                          <span
+                            className="material-icons-outlined"
+                            style={{
+                              fontSize: '16px',
+                              color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
+                              cursor: 'pointer',
+                              verticalAlign: 'middle',
+                              display: 'flex',
+                              alignItems: 'center',
+                              lineHeight: 1,
+                            }}
+                            onMouseEnter={e => {
+                              e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              showTooltip('Relação entre o saldo CAGED e a demanda por formação do Mapa do Trabalho.\n\nQuanto maior, melhor.', rect);
+                            }}
+                            onMouseLeave={e => {
+                              e.stopPropagation();
+                              hideTooltip();
+                            }}
+                            tabIndex={0}
+                            aria-label="Explicação sobre crescimento de mercado"
+                          >
+                            help_outline
+                          </span>
+                        </div>
+                      )}
+                      {criterioName === 'Vulnerabilidade' && (
+                        <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
+                          <span
+                            className="material-icons-outlined"
+                            style={{
+                              fontSize: '16px',
+                              color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
+                              cursor: 'pointer',
+                              verticalAlign: 'middle',
+                              display: 'flex',
+                              alignItems: 'center',
+                              lineHeight: 1,
+                            }}
+                            onMouseEnter={e => {
+                              e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              showTooltip('Sensibilidade do setor aos fatores externos, avaliado pela análise PESTAL (Política, Economia, Social, Tecnologia, Ambiental e Legal).\n\nQuanto menor, melhor.', rect);
+                            }}
+                            onMouseLeave={e => {
+                              e.stopPropagation();
+                              hideTooltip();
+                            }}
+                            tabIndex={0}
+                            aria-label="Explicação sobre vulnerabilidade"
+                          >
+                            help_outline
+                          </span>
+                        </div>
+                      )}
+                      {criterioName === 'Volume de Concorrentes' && (
+                        <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
+                          <span
+                            className="material-icons-outlined"
+                            style={{
+                              fontSize: '16px',
+                              color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
+                              cursor: 'pointer',
+                              verticalAlign: 'middle',
+                              display: 'flex',
+                              alignItems: 'center',
+                              lineHeight: 1,
+                            }}
+                            onMouseEnter={e => {
+                              e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              showTooltip('É o volume de empresas concorrentes (em quantidade e força) naquele mercado, ofertando um produto similar ou substituto.\n\nQuanto menor, melhor.', rect);
+                            }}
+                            onMouseLeave={e => {
+                              e.stopPropagation();
+                              hideTooltip();
+                            }}
+                            tabIndex={0}
+                            aria-label="Explicação sobre volume de concorrentes"
+                          >
+                            help_outline
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    {expandedCriterios.has(criterioName) && (
+                      <div style={{ marginLeft: '20px', marginTop: '4px' }}>
+                        {criterioData.notas.map((nota) => (
+                          <label
+                            key={`${criterioName}-${nota.valor}`}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              cursor: 'pointer',
+                              fontSize: '0.75rem',
+                              color: theme.colorScheme === 'dark' ? DARK_MODE_FONT_COLOR : theme.black,
+                              fontFamily: 'Roboto Flex, Arial, sans-serif',
+                              marginBottom: '2px',
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isNotaSelected(criterioName, nota.valor)}
+                              onChange={(e) => handleNotaChange(criterioName, nota.valor, e.target.checked)}
+                              style={{ marginRight: '8px' }}
+                            />
+                            <span style={{ fontWeight: 'bold', marginRight: '4px' }}>Nota {nota.valor}:</span>
+                            <span style={{ fontSize: '0.7rem' }}>{nota.descricao}</span>
+                          </label>
+                        ))}
                       </div>
                     )}
                   </div>
-                  
-                  {expandedCriterios.has(criterioName) && (
-                    <div style={{ marginLeft: '20px', marginTop: '4px' }}>
-                      {criterioData.notas.map((nota) => (
-                        <label
-                          key={`${criterioName}-${nota.valor}`}
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            cursor: 'pointer',
-                            fontSize: '0.75rem',
-                            color: theme.colorScheme === 'dark' ? DARK_MODE_FONT_COLOR : theme.black,
-                            fontFamily: 'Roboto Flex, Arial, sans-serif',
-                            marginBottom: '2px',
-                          }}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={isNotaSelected(criterioName, nota.valor)}
-                            onChange={(e) => handleNotaChange(criterioName, nota.valor, e.target.checked)}
-                            style={{ marginRight: '8px' }}
-                          />
-                          <span style={{ fontWeight: 'bold', marginRight: '4px' }}>Nota {nota.valor}:</span>
-                          <span style={{ fontSize: '0.7rem' }}>{nota.descricao}</span>
-                        </label>
-                      ))}
+                );
+              })}
+            </div>
+            {/* Cabeçalho: Atratividade de Mercado */}
+            <div
+              style={{
+                fontWeight: 'bold',
+                fontSize: '0.85rem',
+                color: theme.colorScheme === 'dark' ? DARK_MODE_FONT_COLOR : theme.black,
+                margin: '12px 0 4px 0',
+                background: theme.colorScheme === 'dark' ? '#554c1a' : '#fff9db',
+                padding: '6px 12px',
+                borderBottom: '1px solid ' + (theme.colorScheme === 'dark' ? '#a08c3a' : '#ffe066'),
+                letterSpacing: '0.01em',
+                boxShadow: theme.colorScheme === 'dark' ? '0 1px 2px rgba(0,0,0,0.08)' : '0 1px 2px rgba(0,0,0,0.04)',
+              }}
+            >
+              Atratividade de Mercado
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              {ATRATIVIDADE_MERCADO.map((criterioName) => {
+                const criterioData = criteriosConfig[criterioName];
+                if (!criterioData) return null;
+                return (
+                  <div key={criterioName} style={{ borderBottom: '1px solid ' + (theme.colorScheme === 'dark' ? '#555' : '#eee'), paddingBottom: '4px' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        cursor: 'pointer',
+                        fontSize: '0.8rem',
+                        fontWeight: 'bold',
+                        color: theme.colorScheme === 'dark' ? DARK_MODE_FONT_COLOR : theme.black,
+                        fontFamily: 'Roboto Flex, Arial, sans-serif',
+                        padding: '4px 0',
+                      }}
+                      onClick={() => toggleCriterio(criterioName)}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke={theme.colorScheme === 'dark' ? DARK_MODE_FONT_COLOR : theme.black}
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        style={{
+                          marginRight: '8px',
+                          transform: expandedCriterios.has(criterioName) ? 'rotate(90deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.2s ease',
+                        }}
+                      >
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                      {criterioName}
+                      {criterioName === 'Tamanho de Mercado' && (
+                        <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
+                          <span
+                            className="material-icons-outlined"
+                            style={{
+                              fontSize: '16px',
+                              color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
+                              cursor: 'pointer',
+                              verticalAlign: 'middle',
+                              display: 'flex',
+                              alignItems: 'center',
+                              lineHeight: 1,
+                            }}
+                            onMouseEnter={e => {
+                              e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              showTooltip('É o estoque atual de colaboradores em empresas do setor (CAGED).\n\nQuanto maior, melhor.', rect);
+                            }}
+                            onMouseLeave={e => {
+                              e.stopPropagation();
+                              hideTooltip();
+                            }}
+                            tabIndex={0}
+                            aria-label="Explicação sobre tamanho de mercado"
+                          >
+                            help_outline
+                          </span>
+                        </div>
+                      )}
+                      {criterioName === 'Crescimento de Mercado' && (
+                        <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
+                          <span
+                            className="material-icons-outlined"
+                            style={{
+                              fontSize: '16px',
+                              color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
+                              cursor: 'pointer',
+                              verticalAlign: 'middle',
+                              display: 'flex',
+                              alignItems: 'center',
+                              lineHeight: 1,
+                            }}
+                            onMouseEnter={e => {
+                              e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              showTooltip('Relação entre o saldo CAGED e a demanda por formação do Mapa do Trabalho.\n\nQuanto maior, melhor.', rect);
+                            }}
+                            onMouseLeave={e => {
+                              e.stopPropagation();
+                              hideTooltip();
+                            }}
+                            tabIndex={0}
+                            aria-label="Explicação sobre crescimento de mercado"
+                          >
+                            help_outline
+                          </span>
+                        </div>
+                      )}
+                      {criterioName === 'Vulnerabilidade' && (
+                        <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
+                          <span
+                            className="material-icons-outlined"
+                            style={{
+                              fontSize: '16px',
+                              color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
+                              cursor: 'pointer',
+                              verticalAlign: 'middle',
+                              display: 'flex',
+                              alignItems: 'center',
+                              lineHeight: 1,
+                            }}
+                            onMouseEnter={e => {
+                              e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              showTooltip('Sensibilidade do setor aos fatores externos, avaliado pela análise PESTAL (Política, Economia, Social, Tecnologia, Ambiental e Legal).\n\nQuanto menor, melhor.', rect);
+                            }}
+                            onMouseLeave={e => {
+                              e.stopPropagation();
+                              hideTooltip();
+                            }}
+                            tabIndex={0}
+                            aria-label="Explicação sobre vulnerabilidade"
+                          >
+                            help_outline
+                          </span>
+                        </div>
+                      )}
+                      {criterioName === 'Volume de Concorrentes' && (
+                        <div style={{ position: 'relative', marginLeft: '4px', display: 'flex', alignItems: 'center', overflow: 'visible', zIndex: 9999 }}>
+                          <span
+                            className="material-icons-outlined"
+                            style={{
+                              fontSize: '16px',
+                              color: theme.colorScheme === 'dark' ? '#b0b0b0' : '#888',
+                              cursor: 'pointer',
+                              verticalAlign: 'middle',
+                              display: 'flex',
+                              alignItems: 'center',
+                              lineHeight: 1,
+                            }}
+                            onMouseEnter={e => {
+                              e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              showTooltip('É o volume de empresas concorrentes (em quantidade e força) naquele mercado, ofertando um produto similar ou substituto.\n\nQuanto menor, melhor.', rect);
+                            }}
+                            onMouseLeave={e => {
+                              e.stopPropagation();
+                              hideTooltip();
+                            }}
+                            tabIndex={0}
+                            aria-label="Explicação sobre volume de concorrentes"
+                          >
+                            help_outline
+                          </span>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              ))}
+                    {expandedCriterios.has(criterioName) && (
+                      <div style={{ marginLeft: '20px', marginTop: '4px' }}>
+                        {criterioData.notas.map((nota) => (
+                          <label
+                            key={`${criterioName}-${nota.valor}`}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              cursor: 'pointer',
+                              fontSize: '0.75rem',
+                              color: theme.colorScheme === 'dark' ? DARK_MODE_FONT_COLOR : theme.black,
+                              fontFamily: 'Roboto Flex, Arial, sans-serif',
+                              marginBottom: '2px',
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isNotaSelected(criterioName, nota.valor)}
+                              onChange={(e) => handleNotaChange(criterioName, nota.valor, e.target.checked)}
+                              style={{ marginRight: '8px' }}
+                            />
+                            <span style={{ fontWeight: 'bold', marginRight: '4px' }}>Nota {nota.valor}:</span>
+                            <span style={{ fontSize: '0.7rem' }}>{nota.descricao}</span>
+                          </label>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -1349,9 +1745,9 @@ function MatrizGEPageContent({
       dfPlot = dfPlot.filter((item) => {
         return selectedCriterios.some(criterioKey => {
           const [criterioName, nota] = criterioKey.split(':');
-          // Aqui você precisará mapear os nomes dos critérios para as colunas reais da planilha
-          // Por enquanto, vamos usar uma lógica genérica
-          const criterioValue = item[criterioName] || item[criterioName.toLowerCase()] || item[criterioName.toUpperCase()];
+          // Usar o mapeamento para buscar o nome correto da coluna
+          const coluna = CRITERIOS_TO_COLUNAS[criterioName] || criterioName;
+          const criterioValue = item[coluna] || item[coluna.toLowerCase()] || item[coluna.toUpperCase()];
           return criterioValue && String(criterioValue).includes(String(nota));
         });
       });
@@ -1758,7 +2154,11 @@ function MatrizGEPageContent({
       },
       plot_bgcolor: 'rgba(0,0,0,0)', paper_bgcolor: 'rgba(0,0,0,0)', showlegend: false,
       margin: { l: 65, r: 30, t: 30, b: 60, pad: 0 }, hovermode: 'closest',
-      shapes: [...shapes, ...xLineShapes, ...yLineShapes],
+      shapes: [
+        ...shapes,
+        // ...xLineShapes, // Setas dos eixos removidas temporariamente
+        // ...yLineShapes, // Setas dos eixos removidas temporariamente
+      ],
       annotations: [
         ...(dfPlot.length === 0 && !loadingData && !errorMessage &&
           (selectedAreas.length > 0 || selectedQuadrantes.length > 0 || selectedCriterios.length > 0 || selectedProdutos.length > 0)
@@ -1979,6 +2379,7 @@ function MatrizGEPageContent({
                   opened={openedPopover === 'produto'}
                   onOpenChange={(open) => setOpenedPopover(open ? 'produto' : null)}
                   colorScheme={colorScheme}
+                  enableSearch={true}
                 />
                 <button
                   onClick={onResetFilters}
