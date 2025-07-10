@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: white;
+}
+
+.formContainer {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.formHeader {
+  margin-bottom: 32px;
+}
+
+.formHeader h1 {
+  color: #111827;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.formHeader h2 {
+  color: #6B7280;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.microsoftButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.microsoftButton:hover {
+  background-color: #F9FAFB;
+  border-color: #D1D5DB;
+}
+
+.microsoftButton:active {
+  background-color: #F3F4F6;
+}
+
+.microsoftButton svg {
+  flex-shrink: 0;
+} 
