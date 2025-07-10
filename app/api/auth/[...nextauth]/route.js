@@ -23,7 +23,9 @@ const handler = NextAuth({
   callbacks: {
     async signIn({ user, account, profile }) {
       console.log('SignIn callback - User:', user.email);
-      const allowedEmails = ["gabriel.costa@sistemafiea.com.br"];
+      const allowedEmails = [
+"gabriel.costa@sistemafiea.com.br",
+"maryane.oliveira@sistemafiea.com.br];
       const isAllowed = allowedEmails.includes(user.email);
       console.log('User is allowed:', isAllowed);
       
