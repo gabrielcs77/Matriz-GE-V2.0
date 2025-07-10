@@ -1,0 +1,109 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: white;
+}
+
+.menuContainer {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 1000px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menuContainer h1 {
+  color: #111827;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.menuOptions {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+}
+
+.menuButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.menuButton:hover:not(.disabled) {
+  background-color: #F9FAFB;
+  border-color: #D1D5DB;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.menuButton:active:not(.disabled) {
+  transform: translateY(0);
+}
+
+.menuButton span {
+  font-size: 48px;
+  color: #4F46E5;
+  margin-bottom: 8px;
+}
+
+.menuButton div {
+  flex: 1;
+}
+
+.menuButton h3 {
+  color: #111827;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.menuButton p {
+  color: #6B7280;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.disabled span {
+  color: #9CA3AF;
+}
+
+.disabled:hover {
+  background-color: white;
+  border-color: #E5E7EB;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .menuOptions {
+    flex-direction: column;
+  }
+
+  .menuContainer {
+    margin: 20px;
+  }
+} 
