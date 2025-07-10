@@ -167,21 +167,21 @@ Esses dois eixos são divididos em <strong>baixo</strong>, <strong>médio</stron
   • Baixa atratividade + baixa força competitiva.
   • Estratégia: reduzir investimentos, sair do mercado.
 
-Para os itens de análise interna foram considerados os semestres 2024.1, 2024.2 e 2025.1. Os intervalos de classificação são:
+Para os itens de análise interna foram considerados os 3 últimos anos. Os intervalos de classificação são:
 
 <strong>Faturamento</strong>
-Nota 1: até R$ 100.000,00
-Nota 2: até R$ 250.000,00
-Nota 3: até R$ 350.000,00
-Nota 4: até R$ 700.000,00
-Nota 5: acima de R$ 700.000,00
+Nota 1: até R$ 100.000,00 (Habilitação Técnica) | R$ 75.000,00 (Qualificação)
+Nota 2: até R$ 250.000,00 (Habilitação Técnica) | R$ 200.000,00 (Qualificação)
+Nota 3: até R$ 300.000,00 (Habilitação Técnica) | R$ 400.000,00 (Qualificação)
+Nota 4: até R$ 600.000,00 (Habilitação Técnica) | R$ 800.000,00 (Qualificação)
+Nota 5: acima de R$ 600.000,00 (Habilitação Técnica) | R$ 800.000,00 (Qualificação)
 
 <strong>Satisfação</strong>
 Nota 1: NPS até 20%
 Nota 2: NPS entre 21% e 40%
 Nota 3: NPS entre 41% e 60%
 Nota 4: NPS entre 61% e 80%
-Nota 5: NPS acima de 81%
+Nota 5: NPS acima de 80%
 
 <strong>Capacidade de Oferta (execução do planejamento)</strong>
 Nota 1: menor ou igual que 50%
