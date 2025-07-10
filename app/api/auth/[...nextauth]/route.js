@@ -26,7 +26,8 @@ const handler = NextAuth({
       const allowedEmails = [
 "gabriel.costa@sistemafiea.com.br",
 "leandro.lima@sistemafiea.com.br",
-"maryane.oliveira@sistemafiea.com.br"];
+"maryane.oliveira@sistemafiea.com.br",
+"camilla.ferreira@sistemafiea.com.br"];
       const isAllowed = allowedEmails.includes(user.email);
       console.log('User is allowed:', isAllowed);
       
