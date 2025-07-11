@@ -28,7 +28,16 @@ const handler = NextAuth({
 "leandro.lima@sistemafiea.com.br",
 "maryane.oliveira@sistemafiea.com.br",
 "camilla.ferreira@sistemafiea.com.br",
-"thiago.almeida@al.senai.br"];
+"clarisse.araujo@sistemafiea.com.br",
+"thiago.almeida@al.senai.br",
+"matheus.ferreira@sistemafiea.com.br",
+"joel.rodrigues@al.senai.br",
+"weverton.silva@al.senai.br",
+"ygor.oliveira@al.senai.br",
+"gustavo.ferreira@al.senai.br",
+"fernando.oliveira@al.senai.br",
+"andrea.fernandes@al.senai.br"
+];
       const isAllowed = allowedEmails.includes(user.email);
       console.log('User is allowed:', isAllowed);
       
