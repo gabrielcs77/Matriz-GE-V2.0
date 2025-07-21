@@ -36,7 +36,8 @@ const handler = NextAuth({
 "ygor.oliveira@al.senai.br",
 "gustavo.ferreira@al.senai.br",
 "fernando.oliveira@al.senai.br",
-"andrea.fernandes@al.senai.br"
+"andrea.fernandes@al.senai.br",
+"carolina.melo@al.senai.br"
 ];
       const isAllowed = allowedEmails.includes(user.email);
       console.log('User is allowed:', isAllowed);
